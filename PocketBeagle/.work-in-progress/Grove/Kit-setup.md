@@ -4,7 +4,7 @@ See the [Kit tutorials](Kit.md) document to learn more about using PocketBeagle 
 instructions document what was done in the customization of the microSD card images and are not required
 if using one of the provided grove-kit images.
 
-## Make and install the seeed-linux-dtverlays on pocketbeagle
+## Make and install the seeed-linux-dtoverlays on pocketbeagle
 
 - Step 1. update the Kernel.
 
@@ -13,14 +13,14 @@ sudo apt update
 sudo apt install linux-headers-$(uname -r) -y
 ```
 
-- Step 2. Get the `seeed-linux-dtoverlay` source code, install and reboot.
+- Step 2. Get the `seeed-linux-dtoverlays` source code, install and reboot.
 
-seeed-linux-dtoverlay is a packet that can make some Grove become a file that can be read and write on Linux.
+seeed-linux-dtoverlays is a packet that can make some Grove become a file that can be read and write on Linux.
 
 ```bash
 cd ~
-git clone https://github.com/Seeed-Studio/seeed-linux-dtverlays
-cd ~/seeed-linux-dtverlays
+git clone https://github.com/Seeed-Studio/seeed-linux-dtoverlays
+cd ~/seeed-linux-dtoverlays
 make && sudo make install_bb
 sudo echo uboot_overlay_addr0=/lib/firmware/PB-I2C1-TLV320AIC3104.dtbo >> /boot/uEnv.txt
 sudo echo uboot_overlay_addr1=/lib/firmware/BB-GPIO-P9813.dtbo >> /boot/uEnv.txt
@@ -38,7 +38,7 @@ sudo reboot
 - Step 3.Use `alsactl` command to configure TLV320AIC3104 codec
 
 ```bash
-cd ~/seeed-linux-dtverlays/extras/
+cd ~/seeed-linux-dtoverlays/extras/
 sudo alsactl restore 0 -f tlv320aic3104.state.txt
 ```
 
@@ -56,6 +56,6 @@ card 0: Audio [GroveBaseCape Audio], device 0: davinci-mcasp.0-tlv320aic3x-hifi 
 - Step 5.Set default sound card
 
 ```bash
-cd ~/seeed-linux-dtverlays/extras/
+cd ~/seeed-linux-dtoverlays/extras/
 sudo cp tlv320aic3104.conf.txt  /etc/asound.conf
 ```
