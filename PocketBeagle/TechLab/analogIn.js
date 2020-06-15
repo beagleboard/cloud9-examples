@@ -1,17 +1,22 @@
 #!/usr/bin/env node
-var b = require('bonescript');
-var pin = 'P1_19';
+var fs = require('fs');
+var AIN0 = '/sys/bus/iio/devices/iio:device0/in_voltage0_raw'; // Pin: P1_19
+
+var maxValue = 4095;  // maximum value for analog read
 
 console.log('Hit ^C to stop');
 doAnalogRead();
 
 function printStatus(err, x) {
   if(err) {console.log('Got error: ' + err); return;};
-  process.stdout.write(pin + ': ' + (x*100).toFixed(1) +
-    '%, ' + (1.8*x).toFixed(3) + 'V   \r');
+
+  var value = parseInt(x, 10) / maxValue;
+
+  process.stdout.write(pin + ': ' + (value*100).toFixed(1) +
+    '%, ' + (1.8*value).toFixed(3) + 'V   \r');
   setTimeout(doAnalogRead, 100);
 }
 
 function doAnalogRead() {
-  b.analogRead(pin, printStatus);
+  fs.readFile(AIN0, printStatus);
 }
