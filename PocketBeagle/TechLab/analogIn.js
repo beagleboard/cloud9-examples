@@ -12,7 +12,7 @@ function printStatus(err, x) {
 
   var value = parseInt(x, 10) / maxValue;
 
-  process.stdout.write(pin + ': ' + (value*100).toFixed(1) +
+  process.stdout.write('P1_19: ' + (value*100).toFixed(1) +
     '%, ' + (1.8*value).toFixed(3) + 'V   \r');
   setTimeout(doAnalogRead, 100);
 }
