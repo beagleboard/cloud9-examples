@@ -1,56 +1,67 @@
 #!/usr/bin/env node
-var b = require('bonescript');
+// Pre-steps (may need to eventually put in this program):
+//   * Make sure /sys/class/gpio/gpio45 is exported
+//   * Make sure /sys/class/gpio/gpio117 is exported
+//   * Make sure pinmux is in gpio mode
+//   * Make sure gpio is in input mode
 
-var L_BUTTON = "P2_33";
-var R_BUTTON = "P1_29";
+var Epoll = require('epoll').Epoll;
+var fs = require('fs');
+
+var L_BUTTON_PATH = "/sys/class/gpio/gpio45"; // P2_33
+var R_BUTTON_PATH = "/sys/class/gpio/gpio117"; // P1_29
 var debounceActive = false;
 var counter = 0;
+var buffer = Buffer.alloc(1);
 
 writeDigit(0, getDigit(0));
 writeDigit(1, getDigit(0));
 
-b.pinMode(L_BUTTON, b.INPUT, 7, null, null);
-b.attachInterrupt(L_BUTTON, true, b.FALLING, onPress);
-b.pinMode(R_BUTTON, b.INPUT, 7, null, null);
-b.attachInterrupt(R_BUTTON, true, b.FALLING, onPress);
+var L_BUTTON = fs.openSync(L_BUTTON_PATH + "/value", "r");
+var R_BUTTON = fs.openSync(R_BUTTON_PATH + "/value", "r");
+
+// Set interrupt mode
+fs.writeFileSync(L_BUTTON_PATH + "/edge", "falling");
+fs.writeFileSync(R_BUTTON_PATH + "/edge", "falling");
+
+// Attach interrupts
+var left_poller = new Epoll(leftPress);
+left_poller.add(L_BUTTON, Epoll.EPOLLPRI);
+var right_poller = new Epoll(rightPress);
+right_poller.add(R_BUTTON, Epoll.EPOLLPRI);
+
 console.log('Hit ^C to exit');
 
-function onPress(err, x) {
-    var button = "";
-    if(err) {
-        return;
-    }
-    if(x && x.pin && x.pin.key) {
-        switch(x.pin.key) {
-            case L_BUTTON:
-                button = "L";
-                break;
-            case R_BUTTON:
-                button = "R";
-                break;
-            default:
-                break;
-        }
-    }
-    if(x.attached) {
-        console.log("Interrupt handler for " + button + " attached");
-        return;
-    }
+function leftPress(err, fd, events) {
+    fs.readSync(fd, buffer, 0, 1, 0); // Clears interrupt
+
     if(debounceActive) {
         return;
     }
     debounceActive = true;
-    //console.log(button + " pressed");
-    if(button == "L") {
-        counter--;
-        if(counter < 0) counter = 0;
-        writeCount(counter);
+    //console.log("L pressed");
+
+    counter--;
+    if(counter < 0) counter = 0;
+    writeCount(counter);
+
+    setTimeout(clearDebounce, 150);
+    return true;
+}
+
+function rightPress(err, fd, events) {
+    fs.readSync(fd, buffer, 0, 1, 0); // Clears interrupt
+    
+    if(debounceActive) {
+        return;
     }
-    if(button == "R") {
-        counter++;
-        if(counter > 0xff) counter = 0xff;
-        writeCount(counter);
-    }
+    debounceActive = true;
+    //console.log("R pressed");
+
+    counter++;
+    if(counter > 0xff) counter = 0xff;
+    writeCount(counter);
+
     setTimeout(clearDebounce, 150);
     return true;
 }
@@ -143,6 +154,6 @@ function writeDigit(digit, segs) {
     var seg;
     for(var i = 0; i < 7; i++) {
         seg = (segs >> i) & 1;
-        b.writeTextFile("/sys/class/leds/techlab::seg" + (index+i) + "/brightness", seg);
+        fs.writeFileSync("/sys/class/leds/techlab::seg" + (index+i) + "/brightness", seg)
     }
 }
