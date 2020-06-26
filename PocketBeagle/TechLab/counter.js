@@ -27,8 +27,11 @@ fs.writeFileSync(R_BUTTON_PATH + "/edge", "falling");
 // Attach interrupts
 var left_poller = new Epoll(leftPress);
 left_poller.add(L_BUTTON, Epoll.EPOLLPRI);
+console.log("Interrupt handler for L attached");
+
 var right_poller = new Epoll(rightPress);
 right_poller.add(R_BUTTON, Epoll.EPOLLPRI);
+console.log("Interrupt handler for R attached");
 
 console.log('Hit ^C to exit');
 
