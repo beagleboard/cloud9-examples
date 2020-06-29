@@ -44,8 +44,7 @@ function leftPress(err, fd, events) {
     debounceActive = true;
     //console.log("L pressed");
 
-    counter--;
-    if(counter < 0) counter = 0;
+    if(counter > 0) counter--;
     writeCount(counter);
 
     setTimeout(clearDebounce, 150);
@@ -61,8 +60,7 @@ function rightPress(err, fd, events) {
     debounceActive = true;
     //console.log("R pressed");
 
-    counter++;
-    if(counter > 0xff) counter = 0xff;
+    if(counter < 0xff) counter++;
     writeCount(counter);
 
     setTimeout(clearDebounce, 150);
