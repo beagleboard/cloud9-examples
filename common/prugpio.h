@@ -23,15 +23,15 @@
 #define USR1 (1<< 5)
 // PRU header pins
 // pru1_0
-#define P8_11   (1<<4)      /* pr1_pru0 */
-#define P8_12   (1<<3)      /* pr1_pru0 */
-#define P9_15   (1<<5)  	/* pr1_pru0 */
+#define P8_11   (1<<4)		/* pr1_pru0 */
+#define P8_12   (1<<3)		/* pr1_pru0 */
+#define P9_15   (1<<5)		/* pr1_pru0 */
 #define P9_26   (1<<17)		/* pr1_pru0 */
 // pru1_1
-#define P8_13   (1<<7)      /* pr1_pru1 */
-#define P8_14   (1<<9)      /* pr1_pru1 */
-#define P8_15   (1<<16)     /* pr1_pru1 */
-#define P8_16   (1<<18)     /* pr1_pru1 */
+#define P8_13   (1<<7)		/* pr1_pru1 */
+#define P8_14   (1<<9)		/* pr1_pru1 */
+#define P8_15   (1<<16)		/* pr1_pru1 */
+#define P8_16   (1<<18)		/* pr1_pru1 */
 #define P8_18   (1<<5)		/* pr1_pru1 */
 #define P8_19   (1<<6)		/* pr1_pru1 */
 #define P8_26   (1<<17)		/* pr1_pru1 */
@@ -43,11 +43,11 @@
 #define P9_41   (1<<3)		/* pr1_pru1 */
 #define P9_42   (1<<10)		/* pr1_pru1 */
 // pru2_0
-#define P8_03   (1<<10)     /* pr2_pru0 */
-#define P8_04   (1<<11)     /* pr2_pru0 */
-#define P8_05   (1<<6)      /* pr2_pru0 */
-#define P8_06   (1<<7)      /* pr2_pru0 */
-#define P8_08   (1<<20)     /* pr2_pru0 */
+#define P8_03   (1<<10)		/* pr2_pru0 */
+#define P8_04   (1<<11)		/* pr2_pru0 */
+#define P8_05   (1<<6)		/* pr2_pru0 */
+#define P8_06   (1<<7)		/* pr2_pru0 */
+#define P8_08   (1<<20)		/* pr2_pru0 */
 #define P8_17   (1<<15)		/* pr2_pru0 */
 #define P8_20   (1<<3)		/* pr2_pru0 */
 #define P8_21   (1<<2)		/* pr2_pru0 */
@@ -73,9 +73,9 @@
 #define P9_11   (1<<14)		/* pr2_pru0 */
 #define P9_13   (1<<15)		/* pr2_pru0 */
 // pru2_1
-#define P8_07   (1<<16)     /* pr2_pru1 */
-#define P8_09   (1<<6)      /* pr2_pru1 */
-#define P8_10   (1<<15)     /* pr2_pru1 */
+#define P8_07   (1<<16)		/* pr2_pru1 */
+#define P8_09   (1<<6)		/* pr2_pru1 */
+#define P8_10   (1<<15)		/* pr2_pru1 */
 #define P8_27   (1<<17)		/* pr2_pru1 */
 #define P8_32   (1<<0)		/* pr2_pru1 */
 #define P8_43   (1<<20)		/* pr2_pru1 */
@@ -102,7 +102,7 @@
 
 #warning "Found am335x"
 // These are addresses for the am35xx
-#define GPIO0 0x44E07000        // From table 2.2 of am335x TRM
+#define GPIO0 0x44E07000		  // From table 2.2 of am335x TRM
 #define GPIO1 0x4804C000
 #define GPIO2 0x481AC000
 #define GPIO3 0x481AE000
@@ -162,6 +162,6 @@
 
 #endif
 // /4 to convert from byte address to word address
-#define GPIO_CLEARDATAOUT	0x190/4     // Write 1 here to set a given bit    
-#define GPIO_SETDATAOUT 	0x194/4     // A 1 here clears the corresponding bit
-#define GPIO_DATAOUT		0x138/4     // For reading the GPIO registers
+#define GPIO_CLEARDATAOUT	0x190/4		// Write 1 here to set a given bit    
+#define GPIO_SETDATAOUT 	0x194/4		// A 1 here clears the corresponding bit
+#define GPIO_DATAOUT		0x138/4		// For reading the GPIO registers
