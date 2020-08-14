@@ -1,4 +1,6 @@
 // This file defines the GPIO port addresses and PRU address
+// See the cape interface spec page for more info on PRU 
+// https://elinux.org/Beagleboard:BeagleBone_cape_interface_spec#PRU
 
 #if defined(CHIP) && defined(CHIP_IS_am57xx)
 #warning "Found AI"
