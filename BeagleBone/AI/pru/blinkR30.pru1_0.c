@@ -4,8 +4,9 @@
 //	Wiring:	P9_26 connects to the plus lead of an LED.  The negative lead of the
 //			LED goes to a 220 Ohm resistor.  The other lead of the resistor goes
 //			to ground.
-//	Setup:	None
-//	See:	cloud9/common/prugpio.h to see which pins attach to pr1_pru0
+//	Setup:	Load the BBAI-PRUOUT_PRU1_0.dtbo overlay
+//	See:	1) cloud9/common/prugpio.h for which pins attach to pr1_pru0.
+// 			2) End of this file for loading the correct overlay.
 //	PRU:	pru1_0
 ////////////////////////////////////////
 #include <stdint.h>
@@ -29,5 +30,17 @@ void main(void) {
 	__halt();
 }
 
-// You need to load this overlay to configure pimux of all the pr1_pru0 pins as pruout
-// https://github.com/lorforlinux/bb.org-overlays/blob/pru/src/arm/BBAI-PRUOUT_PRU1_0.dts
+// You need to load the BBAI-PRUOUT_PRU1_0.dtbo overlay to use this example.
+// BBAI-PRUOUT_PRU1_0.dtbo sets pinmux for all PRU1_O pins to PRUOUT!
+// Edit uEnv.txt by executing, $ sudo nano /boot/uEnv.txt
+// Add the content within /* */ to uEnv.txt
+
+/* 
+
+enable_uboot_overlays=1
+uboot_overlay_addr0=BBAI-PRUOUT_PRU1_0.dtbo
+
+*/
+
+// There are 8 slots for overlays, 
+// If addr0 is accupied you can use addr1 - addr7
