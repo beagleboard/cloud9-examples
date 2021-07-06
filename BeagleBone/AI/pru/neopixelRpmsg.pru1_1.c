@@ -27,8 +27,8 @@
 volatile register uint32_t __R30;
 volatile register uint32_t __R31;
 
-/* Host-0 Interrupt sets bit 30 in register R31 */
-#define HOST_INT			((uint32_t) 1 << 30)	
+/* Host-1 Interrupt sets bit 31 in register R31 */
+#define HOST_INT			((uint32_t) 1 << 31)	
 
 /* The PRU-ICSS system events used for RPMsg are defined in the Linux device tree
  * PRU0 uses system event 16 (To ARM) and 17 (From ARM)
