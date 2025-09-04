@@ -1,3 +1,9 @@
+# Archived!
+
+Cloud9 IDE has been absorbed by Amazon and no longer supported on Beagles.
+
+We now use Visual Studio Code (via Coder's code-server). Find the new examples at: https://github.com/beagleboard/vsx-examples
+
 # cloud9-examples
 
 This contains many demos for the various Beagles.  Be sure to find the
